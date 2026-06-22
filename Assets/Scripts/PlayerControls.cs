@@ -8,6 +8,7 @@ public class PlayerControls : MonoBehaviour
     private int count;
     public float speed = 10f;
     public TextMeshProUGUI countText;
+    public GameObject winTextObject;
 
     void Start()
     {
@@ -15,6 +16,7 @@ public class PlayerControls : MonoBehaviour
         count = 0;
 
         SetCountText();
+        winTextObject.SetActive(false);
     }
 
     void FixedUpdate()
@@ -51,6 +53,11 @@ public class PlayerControls : MonoBehaviour
     void SetCountText()
     {
         countText.text = "Count: " + count.ToString();
+        
+        if(count >= 12)
+        {
+            winTextObject.SetActive(true);
+        }
     }
 
     private void OnTriggerEnter(Collider other)
