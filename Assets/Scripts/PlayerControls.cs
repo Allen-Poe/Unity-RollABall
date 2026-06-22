@@ -1,14 +1,20 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using TMPro;
 
 public class PlayerControls : MonoBehaviour
 {
     private Rigidbody rb;
+    private int count;
     public float speed = 10f;
+    public TextMeshProUGUI countText;
 
     void Start()
     {
         rb = GetComponent<Rigidbody>();
+        count = 0;
+
+        SetCountText();
     }
 
     void FixedUpdate()
@@ -42,11 +48,19 @@ public class PlayerControls : MonoBehaviour
         rb.AddForce(movement * speed);
     }
 
+    void SetCountText()
+    {
+        countText.text = "Count: " + count.ToString();
+    }
+
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.CompareTag("PickUp"))
         {
             other.gameObject.SetActive(false);
+            count = count + 1;
+
+            SetCountText();
         }
 
     }
